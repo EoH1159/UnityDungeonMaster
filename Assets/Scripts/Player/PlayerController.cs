@@ -87,15 +87,17 @@ public class PlayerController : MonoBehaviour
     {
         Ray[] rays = new Ray[4]
         {
-            new Ray(transform.position + (transform.forward * 1f) + (transform.up * 0.1f), Vector3.down),
-            new Ray(transform.position + (-transform.forward * 1f) + (transform.up * 0.1f), Vector3.down),
-            new Ray(transform.position + (transform.right * 1f) + (transform.up * 0.1f), Vector3.down),
-            new Ray(transform.position + (-transform.right * 1f) + (transform.up * 0.1f), Vector3.down)
+            new Ray(transform.position + (transform.forward * 0.5f) + (transform.up * -0.12f), Vector3.down),
+            new Ray(transform.position + (-transform.forward * 0.5f) + (transform.up * -0.12f), Vector3.down),
+            new Ray(transform.position + (transform.right * 0.5f) + (transform.up * -0.12f), Vector3.down),
+            new Ray(transform.position + (-transform.right * 0.5f) + (transform.up * -0.12f), Vector3.down)
         };
+        
 
-        for(int i =0;i < rays.Length; i++)
+        for (int i =0;i < rays.Length; i++)
         {
-            if(Physics.Raycast(rays[i], 0.1f, groundLayerMask))
+            Debug.DrawRay(rays[i].origin, rays[i].direction * 0.1f, Color.red, 0.1f);
+            if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
             {
                 return true;
             }
