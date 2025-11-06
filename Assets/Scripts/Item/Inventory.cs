@@ -6,15 +6,17 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory Instance { get; private set; }
 
+    [Header("아이템 리스트")]
     public List<Item> items = new List<Item>();
-    public int maxSlots = 8;
 
-    [Header("Weapon Slot")]
-    public Transform weaponSlot; // 플레이어 손 위치에 빈 오브젝트 만들어서 연결
-    private GameObject currentWeapon;
+    [Header("무기를 장착할 위치")]
+    public Transform weaponSlot;  // 손 위치
 
-    private void Awake()
+    private GameObject currentWeapon; // 현재 손에 들고 있는 무기
+
+    void Awake()
     {
+        // 이 스크립트가 게임 전체에서 딱 하나만 존재하게 함
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -24,22 +26,10 @@ public class Inventory : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            Inventory.Instance.UseItem(0);  // 첫 번째 아이템 사용 (포션 or 무기)
-    }
     public void AddItem(Item newItem)
     {
-        if (items.Count < maxSlots)
-        {
-            items.Add(newItem);
-            Debug.Log($"{newItem.itemName} 을(를) 인벤토리에 추가했습니다!");
-        }
-        else
-        {
-            Debug.Log("인벤토리가 가득 찼습니다!");
-        }
+        items.Add(newItem);
+        Debug.Log($"{newItem.itemName}을(를) 인벤토리에 추가했습니다!");
     }
 
     public void UseItem(int index)
@@ -47,6 +37,8 @@ public class Inventory : MonoBehaviour
         if (index < 0 || index >= items.Count) return;
 
         Item item = items[index];
+
+        // 아이템 종류에 따라 다르게 작동
         switch (item.type)
         {
             case Item.ItemType.HP_Potion:
@@ -60,20 +52,20 @@ public class Inventory : MonoBehaviour
                 break;
         }
 
-        Debug.Log($"{item.itemName} 을(를) 사용했습니다!");
+        Debug.Log($"{item.itemName}을(를) 사용했습니다!");
     }
 
     void EquipWeapon(Item weaponItem)
     {
-        // 기존 무기 제거
+        // 이미 손에 무기가 있으면 없애기
         if (currentWeapon != null)
             Destroy(currentWeapon);
 
-        // 새 무기 장착
+        // 새 무기를 손 위치에 붙이기
         currentWeapon = Instantiate(weaponItem.weaponPrefab, weaponSlot);
         currentWeapon.transform.localPosition = Vector3.zero;
         currentWeapon.transform.localRotation = Quaternion.identity;
 
-        Debug.Log($"🔪 {weaponItem.itemName} 장착 완료! 공격력: {weaponItem.value}");
+        Debug.Log($" {weaponItem.itemName} 장착 완료!");
     }
 }
