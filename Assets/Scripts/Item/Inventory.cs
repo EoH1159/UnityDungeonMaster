@@ -6,7 +6,10 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory Instance { get; private set; }
 
-    public List<ItemData> items = new List<ItemData>();  // ✅ Item → ItemData
+    [Header("인벤토리 리스트 (획득 순서 유지)")]
+    public List<ItemData> items = new List<ItemData>();
+
+    [Header("무기 장착 위치")]
     public Transform weaponSlot;
     private GameObject currentWeapon;
 
@@ -66,5 +69,12 @@ public class Inventory : MonoBehaviour
         }
 
         Debug.Log($" {weaponItem.itemName} 장착 완료! (공격력 {weaponItem.value})");
+    }
+
+    // 아이템 정렬 예시 (원하면 수동 호출)
+    public void SortItemsByType()
+    {
+        items.Sort((a, b) => a.itemType.CompareTo(b.itemType));
+        Debug.Log(" 아이템을 타입별로 정렬했습니다!");
     }
 }

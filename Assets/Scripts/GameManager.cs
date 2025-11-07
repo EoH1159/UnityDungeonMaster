@@ -26,10 +26,12 @@ public class GameManager : MonoBehaviour
     public void ChangeHP(float amount)
     {
         playerHP = Mathf.Clamp(playerHP + amount, 0, maxHP);
+         Debug.Log($" HP: {playerHP}/{maxHP}");
     }
 
     public void ChangeMP(float amount)
     {
         playerMP = Mathf.Clamp(playerMP + amount, 0, maxMP);
+        Debug.Log($" MP: {playerMP}/{maxMP}");
     }
 }
