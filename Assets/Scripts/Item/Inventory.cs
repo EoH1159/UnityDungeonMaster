@@ -57,9 +57,10 @@ public class Inventory : MonoBehaviour
         if (currentWeapon != null)
             Destroy(currentWeapon);
 
-        if (weaponItem.weaponPrefab != null && weaponSlot != null)
+        // weaponPrefab 대신 prefab 사용
+        if (weaponItem.prefab != null && weaponSlot != null)
         {
-            currentWeapon = Instantiate(weaponItem.weaponPrefab, weaponSlot);
+            currentWeapon = Instantiate(weaponItem.prefab, weaponSlot);
             currentWeapon.transform.localPosition = Vector3.zero;
             currentWeapon.transform.localRotation = Quaternion.identity;
         }

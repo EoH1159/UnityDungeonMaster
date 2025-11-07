@@ -26,17 +26,26 @@ public class InventoryUI : MonoBehaviour
 
     private void Redraw()
     {
-        // 기존 슬롯 제거
         foreach (Transform child in slotRoot)
             Destroy(child.gameObject);
 
-        // 인벤토리 아이템 그리기
         for (int i = 0; i < Inventory.Instance.items.Count; i++)
         {
-            ItemData item = Inventory.Instance.items[i]; // ✅ Item → ItemData로 변경
+            ItemData item = Inventory.Instance.items[i];
 
             Button btn = Instantiate(slotButtonPrefab, slotRoot);
-            btn.GetComponentInChildren<Text>().text = item.itemName;
+
+            // 기존 텍스트 대신 아이콘 프리팹 표시
+            if (item.iconPrefab != null)
+            {
+                GameObject icon = Instantiate(item.iconPrefab, btn.transform);
+                icon.transform.localPosition = Vector3.zero;
+            }
+            else
+            {
+                // fallback: 이름 텍스트 표시
+                btn.GetComponentInChildren<Text>().text = item.itemName;
+            }
 
             int index = i;
             btn.onClick.AddListener(() => Inventory.Instance.UseItem(index));

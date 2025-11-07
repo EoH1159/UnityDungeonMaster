@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98bc360905f9804d96c4ee13165e2bb, type: 3}
   m_Name: MPPotion
   m_EditorClassIdentifier: 
-  itemName: 
-  icon: {fileID: 0}
-  itemType: 0
+  itemName: MPPotion
+  itemType: 1
   value: 0
-  weaponPrefab: {fileID: 0}
+  prefab: {fileID: 919132149155446097, guid: 85c36c7b89cce1e48bfb44ae5c1fdc84, type: 3}
+  iconPrefab: {fileID: 919132149155446097, guid: 85c36c7b89cce1e48bfb44ae5c1fdc84, type: 3}
