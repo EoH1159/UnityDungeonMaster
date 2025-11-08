@@ -49,6 +49,11 @@ public class Inventory : MonoBehaviour
             case ItemData.ItemType.Weapon:
                 EquipWeapon(item);
                 break;
+            case ItemData.ItemType.SpeedPotion:     // 추가
+                var pc = FindObjectOfType<PlayerController>(); // 또는 캐시해둔 참조
+                if (pc != null) pc.ApplySpeedBoost(item.value, item.duration);
+                Debug.Log($"스피드 포션 사용: x{item.value} {item.duration}초");
+                break;
         }
 
         if (item.itemType != ItemData.ItemType.Weapon)

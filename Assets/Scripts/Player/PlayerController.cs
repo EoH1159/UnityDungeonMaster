@@ -1,14 +1,19 @@
-﻿
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Moverment")]
-    public float moveSpeed;
+    public float moveSpeed = 5f;
     public float jumpForce;
     private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
+    
+    // 이동할 때는 항상 이 값을 사용하도록(예: moveSpeedCurrent로 사용)
+    private float _speedMultiplier = 1f;
+    public float CurrentMoveSpeed => moveSpeed * _speedMultiplier;
+
 
     [Header("Look")]
     public Transform cameraContainer;
@@ -53,7 +58,7 @@ public class PlayerController : MonoBehaviour
     {
         //플레이어의 이동값을 받아와서 이동
         Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
-        dir *= moveSpeed;
+        dir *= CurrentMoveSpeed;
         dir.y = _rigidbody.velocity.y;
 
         _rigidbody.velocity = dir;
@@ -61,12 +66,19 @@ public class PlayerController : MonoBehaviour
 
     void CameraLook()
     {
-        if (Time.timeSinceLevelLoad < 0.1f) return;
-        curXLookRotation += mouseDelta.y * lookSensitivity;
+        // 마우스 입력은 속도, Rigidbody 등과 관계없이 항상 고정
+        Vector2 rawMouse = new Vector2(
+            Input.GetAxis("Mouse X"),
+            Input.GetAxis("Mouse Y")
+        );
+
+        // 오직 lookSensitivity와 deltaTime만 사용
+        curXLookRotation += rawMouse.y * lookSensitivity;
         curXLookRotation = Mathf.Clamp(curXLookRotation, minXLook, maxXLook);
         cameraContainer.localEulerAngles = new Vector3(-curXLookRotation, 0f, 0f);
 
-        transform.eulerAngles += new Vector3(0f, mouseDelta.x * lookSensitivity, 0f);
+        // Y축(좌우) 회전
+        transform.eulerAngles += new Vector3(0f, rawMouse.x * lookSensitivity, 0f);
     }
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -145,5 +157,21 @@ public class PlayerController : MonoBehaviour
                 lookSensitivity = 1f;                     // 시점 회전 복귀
             }
         }
+    }
+
+    Coroutine speedCo;
+
+    public void ApplySpeedBoost(float multiplier, float duration)
+    {
+        if (speedCo != null) StopCoroutine(speedCo);
+        speedCo = StartCoroutine(SpeedBoostRoutine(multiplier, duration));
+    }
+
+    IEnumerator SpeedBoostRoutine(float multiplier, float duration)
+    {
+        _speedMultiplier = multiplier;   // 예: 1.5배
+        yield return new WaitForSeconds(duration);
+        _speedMultiplier = 1f;           // 원상복구
+        speedCo = null;
     }
 }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8078485246409065239
+--- !u!1 &7185938659430340042
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,51 +8,51 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1940188403073288338}
-  - component: {fileID: 2760968212916173008}
-  - component: {fileID: 7127668093412230154}
+  - component: {fileID: 3571482968459556609}
+  - component: {fileID: 8636815169865663319}
+  - component: {fileID: 3172982290126390187}
   m_Layer: 7
-  m_Name: HPPotionObject
+  m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1940188403073288338
+--- !u!4 &3571482968459556609
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8078485246409065239}
+  m_GameObject: {fileID: 7185938659430340042}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.03, y: 1.58, z: -0.26440448}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: -7.75, y: 1.0399476, z: 5.35}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2760968212916173008
+--- !u!114 &8636815169865663319
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8078485246409065239}
+  m_GameObject: {fileID: 7185938659430340042}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b65fe3e69f9a87a43bfdce93e5a11ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 3ab70992e6f480b4288d60f07497ba1c, type: 2}
---- !u!136 &7127668093412230154
-CapsuleCollider:
+  itemData: {fileID: 11400000, guid: a9374f6b479657849bb08af55dc3b52e, type: 2}
+--- !u!65 &3172982290126390187
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8078485246409065239}
+  m_GameObject: {fileID: 7185938659430340042}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -64,8 +64,6 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Height: 2
-  m_Direction: 1
+  serializedVersion: 3
+  m_Size: {x: 0.2, y: 0.2, z: 1.3}
   m_Center: {x: 0, y: 0, z: 0}

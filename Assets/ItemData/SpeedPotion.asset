@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d98bc360905f9804d96c4ee13165e2bb, type: 3}
-  m_Name: HPPotion
+  m_Name: SpeedPotion
   m_EditorClassIdentifier: 
-  itemName: HPPotion
-  itemType: 0
-  value: 50
-  duration: 0
-  prefab: {fileID: 919132149155446097, guid: 251889413fcfbe841a4d11ea37dfe4fe, type: 3}
+  itemName: SpeedPotion
+  itemType: 3
+  value: 1.5
+  duration: 5
+  prefab: {fileID: 919132149155446097, guid: 905f72ca98139284d856e235054cf139, type: 3}
