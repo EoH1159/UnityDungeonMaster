@@ -25,6 +25,15 @@ public class PlayerController : MonoBehaviour
 
     [Header("참조 연결")]
     [SerializeField] private InventoryUI inventoryUI; // 인벤토리 UI 연결용
+    Animator animator;
+
+    [Header("Ground Check")]
+    public Transform groundCheck;    // 바닥 감지 위치
+    public float groundDistance = 0.3f; // 감지 반경
+    public LayerMask groundMask;     // 감지할 레이어 (Ground)
+
+    private bool isGrounded;         //  착지 여부
+
 
 
     private Rigidbody _rigidbody;
@@ -42,9 +51,24 @@ public class PlayerController : MonoBehaviour
         // 마우스 입력 초기화 (시작 시 시점이 튀는 현상 방지)
         mouseDelta = Vector2.zero;
         curXLookRotation = 0f;
+        _rigidbody = GetComponent<Rigidbody>();
+        animator = GetComponentInChildren<Animator>();
+
+    }
+    void Update()
+    {
+        // 🔹 바닥 감지 (SphereCast 방식)
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        // 🔹 애니메이터 파라미터 갱신
+        if (animator != null)
+        {
+            float moveAmount = new Vector2(curMovementInput.x, curMovementInput.y).magnitude;
+            animator.SetFloat("Speed", moveAmount);
+            animator.SetBool("isGrounded", isGrounded); // 여기가 핵심
+        }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         Move();
@@ -173,5 +197,12 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         _speedMultiplier = 1f;           // 원상복구
         speedCo = null;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (groundCheck == null) return;
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(groundCheck.position, groundDistance);
     }
 }
